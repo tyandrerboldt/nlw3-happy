@@ -15,6 +15,10 @@ export class createOrphanages1602632424867 implements MigrationInterface {
                     generationStrategy: 'increment'
                 },
                 {
+                    name: 'name',
+                    type: 'varchar',                    
+                },
+                {
                     name: 'latitude',
                     type: 'decimal',
                     scale: 10,
@@ -33,6 +37,10 @@ export class createOrphanages1602632424867 implements MigrationInterface {
                 {
                     name: 'instructions',
                     type: 'text',                    
+                },
+                {
+                    name: 'opening_hours',
+                    type: 'varchar',                    
                 },
                 {
                     name: 'open_on_weekends',
