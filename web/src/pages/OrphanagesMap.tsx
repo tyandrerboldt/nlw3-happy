@@ -19,8 +19,6 @@ interface Orphanage {
 const OrphanagesMap = () => {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
-  console.log(orphanages);  
-
   useEffect(() => {
     api.get('orphanages').then(response => {
       setOrphanages(response.data);
@@ -56,8 +54,8 @@ const OrphanagesMap = () => {
         {orphanages.map(orphanage => {
           return(
             <Marker 
-            key={orphanage.id}
-            icon={mapIcon}
+              key={orphanage.id}
+              icon={mapIcon}
               position={[orphanage.latitude, orphanage.longitude]}
             >
               <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
