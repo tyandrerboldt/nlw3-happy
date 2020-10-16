@@ -31,6 +31,7 @@ interface RouteParams {
 export default function Orphanage() {
   const params = useParams<RouteParams>();
   const [orphanage, setOrphanage] = useState<Orphanage>();
+  const [activeImageIndex, setactiveImageIndex] = useState(0);
 
   useEffect(() => {
     api.get(`orphanages/${params.id}`).then(response => {
@@ -49,11 +50,18 @@ export default function Orphanage() {
 
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[0].url} alt={orphanage.name} />
+          <img src={orphanage.images[activeImageIndex].url} alt={orphanage.name} />
 
           <div className="images">
-            {orphanage.images.map(image => (
-              <button key={image.id} className="active" type="button">
+            {orphanage.images.map((image, index ) => (
+              <button 
+                key={image.id} 
+                className={activeImageIndex === index ? 'active' : ''} 
+                type="button"
+                onClick={() => {
+                  setactiveImageIndex(index);
+                }}
+              >
                 <img src={image.url} alt={orphanage.name} />
               </button>
             ))}            
@@ -65,8 +73,8 @@ export default function Orphanage() {
 
             <div className="map-container">
               <Map 
-                center={[orphanage.longitude, orphanage.latitude]} 
-                zoom={16} 
+                center={[orphanage.latitude, orphanage.longitude]} 
+                zoom={17} 
                 style={{ width: '100%', height: 280 }}
                 dragging={false}
                 touchZoom={false}
@@ -74,14 +82,12 @@ export default function Orphanage() {
                 scrollWheelZoom={false}
                 doubleClickZoom={false}
               >
-                <TileLayer 
-                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                />
-                <Marker interactive={false} icon={mapIcon} position={[orphanage.longitude, orphanage.latitude]} />
+                <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <Marker interactive={false} icon={mapIcon} position={[orphanage.latitude, orphanage.longitude]} />
               </Map>
 
               <footer>
-                <Link to="link">Ver rotas no Google Maps</Link>
+                <a target="_BLANK" rel="noopener no referrer" href={`https://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>Ver rotas no Google Maps</a>
               </footer>
             </div>
 
