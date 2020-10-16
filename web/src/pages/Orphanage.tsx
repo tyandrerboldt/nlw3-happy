@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { FaWhatsapp } from "react-icons/fa";
 import { FiClock, FiInfo } from "react-icons/fi";
 import { Map, Marker, TileLayer } from "react-leaflet";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
 import mapIcon from '../utils/mapIcon';
@@ -94,7 +94,7 @@ export default function Orphanage() {
             <hr />
 
             <h2>Instruções para visita</h2>
-            <p>{orphanage?.instructions}</p>
+            <p>{orphanage.instructions}</p>
 
             <div className="open-details">
               <div className="hour">
